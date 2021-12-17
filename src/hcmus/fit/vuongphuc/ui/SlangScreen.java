@@ -104,7 +104,7 @@ public class SlangScreen extends JFrame implements ActionListener {
 		Object src = e.getSource();
 		if (src==btnBack) {
 			this.dispose();
-			new MenuScreen();
+			new DictionaryMenuScreen();
 		} 
 		else if (src==btnAddDefinition) {
 			

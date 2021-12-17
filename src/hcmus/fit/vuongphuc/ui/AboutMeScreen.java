@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
  * @author VuongPhuc
  * @see 
  */
-public class AboutMeScreen implements ActionListener{
+public class AboutMeScreen extends JFrame implements ActionListener{
 	private String aboutUsString = ""
 			+ "<html>"
 			+ "This is a slang dictionary<br>"
@@ -41,8 +41,8 @@ public class AboutMeScreen implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src==btnBack) {
-			frame.dispose();
-			new MenuScreen();
+			this.dispose();
+			new MainMenuScreen();
 		}
 	}
 	
@@ -71,12 +71,13 @@ public class AboutMeScreen implements ActionListener{
 	
 	public AboutMeScreen() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		frame = new JFrame("About me");
+		this.setTitle("About me");
+		this.setLocationRelativeTo(null);
 		
-		frame.add(createCenterPanel(),BorderLayout.CENTER);
-		frame.add(createBottomPanel(),BorderLayout.SOUTH);
+		this.add(createCenterPanel(),BorderLayout.CENTER);
+		this.add(createBottomPanel(),BorderLayout.SOUTH);
 		
-		frame.pack();
-		frame.setVisible(true);
+		this.pack();
+		this.setVisible(true);
 	}
 }

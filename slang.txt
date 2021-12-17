@@ -640,7 +640,7 @@ BAMA`Person lacking style
 BAMN`By Any Means Necessary
 BANDWIDTH`Amount of data through an interface over time
 BANGER`Great party| Old car| Sausage
-BANGING`Very beautifu| sexy
+BANGING`Very beautiful| sexy
 BANGTIDY`Sexy| fit
 BANJAX`Break| destroy
 BANTER`Playful| witty chat

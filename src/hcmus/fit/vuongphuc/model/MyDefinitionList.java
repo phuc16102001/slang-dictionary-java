@@ -22,6 +22,7 @@ import hcmus.fit.vuongphuc.constant.Constant;
 public class MyDefinitionList extends ArrayList<String> {
 	
 	public MyDefinitionList(String[] listDefinition) {
+		super();
 		for (String definition:listDefinition) {
 			this.add(definition);
 		}
@@ -34,7 +35,7 @@ public class MyDefinitionList extends ArrayList<String> {
 		for (int i=0;i<nSize;i++) {
 			builder.append(this.get(i));
 			if (i<nSize-1) {
-				builder.append(Constant.DFINITION_DEFINITION_DELIMITER);
+				builder.append(Constant.DEFINITION_DEFINITION_DELIMITER);
 			}
 		}
 		return builder.toString();

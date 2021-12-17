@@ -10,12 +10,15 @@ package hcmus.fit.vuongphuc.model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 import hcmus.fit.vuongphuc.constant.Constant;
 
@@ -37,8 +40,29 @@ public class MyDictionary extends HashMap<String, MyDefinitionList> {
 		return instance;
 	}
 	
+	public String random() {
+		String[] keys = this.keySet().toArray(new String[0]);
+		int index = new Random().nextInt(keys.length);
+		return keys[index];
+	}
+	
 	public MyDefinitionList searchSlang(String slang) {
 		return this.get(slang);
+	}
+	
+	public List<String> searchDefinition(String searchKey) {
+		List<String> slangs = new ArrayList<>();
+
+		for (Map.Entry<String, MyDefinitionList> item:this.entrySet()) {	
+			String[] values = this.get(item.getValue()).toArray(new String[0]);
+			for (String definition:values) {
+				if (searchKey.toLowerCase().contains(definition.toLowerCase())) {
+					slangs.add(item.getKey());
+					break;
+				}
+			}
+		}
+		return slangs;
 	}
 	
 	public void loadFromFile(String path) throws IOException {
@@ -46,15 +70,15 @@ public class MyDictionary extends HashMap<String, MyDefinitionList> {
 	
 		String line = null;
 		while ((line=reader.readLine())!=null) {
-//			System.out.println(line);
 			String[] args1 = line.split(Constant.SLANG_DEFINITION_DELIMITER);
 			if (args1.length<2) {
 				continue;
 			}
 			String slang = args1[0];
-			String[] args2 = args1[1].split(Constant.CURRENT_DICT_PATH);
+			String[] args2 = args1[1].split(Pattern.quote(Constant.DEFINITION_DEFINITION_DELIMITER));
 			
 			MyDefinitionList definitions = new MyDefinitionList(args2);
+			System.out.println(definitions);
 			this.put(slang, definitions);
 		}
 		

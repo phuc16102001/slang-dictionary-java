@@ -15,10 +15,12 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,16 +37,12 @@ import hcmus.fit.vuongphuc.utils.MyDialog;
  * @see 
  */
 
-public class MenuScreen extends JFrame implements ActionListener{
+public class MainMenuScreen extends JFrame implements ActionListener{
 	
 	JLabel lbHeading = new JLabel("Slang dictionary");
 	Font fontHeading = new Font("Consola",Font.BOLD,18);
 
-	JButton btnSearchSlang = new JButton("Search slang word");
-	JButton btnSearchDefinition = new JButton("Search definition");
-	JButton btnAddSlang = new JButton("Add new slang");
-	JButton btnReset = new JButton("Reset dictionary");
-	JButton btnRandomSlang = new JButton("Random slang");
+	JButton btnDictionary = new JButton("Dictionary");
 	JButton btnQuizSlang = new JButton("Quiz slang");
 	JButton btnQuizDefinition = new JButton("Quiz definition");
 	JButton btnAboutMe = new JButton("About me");
@@ -54,51 +52,20 @@ public class MenuScreen extends JFrame implements ActionListener{
 	
 	MyDictionary dict = MyDictionary.getInstance();
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		Object src = e.getSource();
-		if (src==btnSearchSlang) {	
-			searchSlang();
-		} 
-		else if (src==btnSearchDefinition) {
-			searchDefinition();
-		}
-		else if (src==btnExit) {
+		if (src==btnExit) {
 			this.dispose();
+		}
+		else if (src==btnDictionary) {
+			this.dispose();
+			new DictionaryMenuScreen();
 		}
 		else if (src==btnAboutMe) {
 			this.dispose();
 			new AboutMeScreen();
 		}
-	}
-	
-	private void searchSlang() {
-		String slang = JOptionPane.showInputDialog("Input slang");
-		if (dict.get(slang)==null) {
-			MyDialog dialog = new MyDialog(this,"Error","Slang word not found");
-			dialog.setVisible(true);
-		} else {
-			this.dispose();
-			new SlangScreen(slang);
-		}
-	}
-	
-	private void searchDefinition() {
-		String slang = JOptionPane.showInputDialog("Input definition");
-	}
-	
-	private void addSlang() {
-		
-	}
-	
-	private void resetDictionary() {
-		
-		
-	}
-	
-	private void randomSlang() {
-		
 	}
 	
 	private void quizSlang() {
@@ -120,36 +87,20 @@ public class MenuScreen extends JFrame implements ActionListener{
 		
 		panel.setBorder(new EmptyBorder(new Insets(50,250,50,250)));
 		panel.setLayout(layout);
-
-		btnSearchSlang.addActionListener(this);
-		btnSearchDefinition.addActionListener(this);
-		btnAddSlang.addActionListener(this);
-		btnReset.addActionListener(this);
-		btnRandomSlang.addActionListener(this);
+		
+		btnDictionary.addActionListener(this);
 		btnQuizSlang.addActionListener(this);
 		btnQuizDefinition.addActionListener(this);
 		btnAboutMe.addActionListener(this);
 		btnExit.addActionListener(this);
-		
-		btnSearchSlang.setMaximumSize(btnSize);
-		btnSearchDefinition.setMaximumSize(btnSize);
-		btnAddSlang.setMaximumSize(btnSize);
-		btnReset.setMaximumSize(btnSize);
-		btnRandomSlang.setMaximumSize(btnSize);
+
+		btnDictionary.setMaximumSize(btnSize);
 		btnQuizSlang.setMaximumSize(btnSize);
 		btnQuizDefinition.setMaximumSize(btnSize);
 		btnAboutMe.setMaximumSize(btnSize);
 		btnExit.setMaximumSize(btnSize);
 
-		panel.add(btnSearchSlang);
-		panel.add(Box.createRigidArea(boxSize));
-		panel.add(btnSearchDefinition);
-		panel.add(Box.createRigidArea(boxSize));
-		panel.add(btnAddSlang);
-		panel.add(Box.createRigidArea(boxSize));
-		panel.add(btnReset);
-		panel.add(Box.createRigidArea(boxSize));
-		panel.add(btnRandomSlang);
+		panel.add(btnDictionary);
 		panel.add(Box.createRigidArea(boxSize));
 		panel.add(btnQuizSlang);
 		panel.add(Box.createRigidArea(boxSize));
@@ -186,7 +137,7 @@ public class MenuScreen extends JFrame implements ActionListener{
 		return panel;
 	}
 	
-	public MenuScreen() {		
+	public MainMenuScreen() {		
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.setTitle("Menu");
 		this.setLocationRelativeTo(null);

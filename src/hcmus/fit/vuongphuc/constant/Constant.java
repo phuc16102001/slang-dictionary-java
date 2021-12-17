@@ -16,7 +16,7 @@ package hcmus.fit.vuongphuc.constant;
  */
 public class Constant {
 	public static String SLANG_DEFINITION_DELIMITER = "`";
-	public static String DFINITION_DEFINITION_DELIMITER = "\\| ";
+	public static String DEFINITION_DEFINITION_DELIMITER = "| ";
 	public static String ENDLINE = "\n";
 
 	public static String DEFAULT_DICT_PATH = "slang.txt";
