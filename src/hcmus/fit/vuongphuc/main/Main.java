@@ -8,6 +8,7 @@
  */
 package hcmus.fit.vuongphuc.main;
 
+import hcmus.fit.vuongphuc.constant.Constant;
 import hcmus.fit.vuongphuc.ui.MenuScreen;
 
 /**
@@ -22,7 +23,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new MenuScreen();
+//		new MenuScreen();
 	}
 
 }

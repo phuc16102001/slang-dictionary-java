@@ -56,7 +56,7 @@ public class MenuScreen implements ActionListener{
 		}
 		else if (src==btnAboutMe) {
 			frame.dispose();
-			new AboutMe();
+			new AboutMeScreen();
 		}
 	}
 	

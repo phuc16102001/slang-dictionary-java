@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
  * @author VuongPhuc
  * @see 
  */
-public class AboutMe implements ActionListener{
+public class AboutMeScreen implements ActionListener{
 	private String aboutUsString = ""
 			+ "<html>"
 			+ "This is a slang dictionary<br>"
@@ -69,7 +69,7 @@ public class AboutMe implements ActionListener{
 		return panel;
 	}
 	
-	public AboutMe() {
+	public AboutMeScreen() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		frame = new JFrame("About me");
 		
