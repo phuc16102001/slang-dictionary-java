@@ -45,6 +45,7 @@ public class MyDialog extends JDialog implements ActionListener {
 
 	public MyDialog(JFrame frame, String title, String message, Boolean useOk) {
 		super(frame,title);
+		this.setLocationRelativeTo(null);
 		
 		BoxLayout layout = new BoxLayout(panel,BoxLayout.Y_AXIS);
 		panel.setLayout(layout);

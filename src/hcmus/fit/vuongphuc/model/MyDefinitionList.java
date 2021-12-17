@@ -20,7 +20,7 @@ import hcmus.fit.vuongphuc.constant.Constant;
  * @see 
  */
 public class MyDefinitionList extends ArrayList<String> {
-
+	
 	public MyDefinitionList(String[] listDefinition) {
 		for (String definition:listDefinition) {
 			this.add(definition);

@@ -8,8 +8,12 @@
  */
 package hcmus.fit.vuongphuc.main;
 
+import java.io.IOException;
+
 import hcmus.fit.vuongphuc.constant.Constant;
+import hcmus.fit.vuongphuc.model.MyDictionary;
 import hcmus.fit.vuongphuc.ui.MenuScreen;
+import hcmus.fit.vuongphuc.utils.MyDialog;
 
 /**
  * Description:
@@ -23,7 +27,21 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		new MenuScreen();
+		boolean load = true;
+		try {
+			MyDictionary.getInstance().loadFromFile(Constant.CURRENT_DICT_PATH);
+		} catch (IOException e) {
+			try {
+				MyDictionary.getInstance().loadFromFile(Constant.DEFAULT_DICT_PATH);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		
+		if (load) {			
+			new MenuScreen();
+		}
 	}
 
 }

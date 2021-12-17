@@ -21,8 +21,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import hcmus.fit.vuongphuc.model.MyDictionary;
+import hcmus.fit.vuongphuc.utils.MyDialog;
 
 /**
  * Description:
@@ -31,33 +35,77 @@ import javax.swing.border.EmptyBorder;
  * @see 
  */
 
-public class MenuScreen implements ActionListener{
-
-	JFrame frame;
+public class MenuScreen extends JFrame implements ActionListener{
 	
 	JLabel lbHeading = new JLabel("Slang dictionary");
 	Font fontHeading = new Font("Consola",Font.BOLD,18);
 
-	JButton btnViewDict = new JButton("View dictionary");
+	JButton btnSearchSlang = new JButton("Search slang word");
+	JButton btnSearchDefinition = new JButton("Search definition");
+	JButton btnAddSlang = new JButton("Add new slang");
+	JButton btnReset = new JButton("Reset dictionary");
+	JButton btnRandomSlang = new JButton("Random slang");
+	JButton btnQuizSlang = new JButton("Quiz slang");
+	JButton btnQuizDefinition = new JButton("Quiz definition");
 	JButton btnAboutMe = new JButton("About me");
 	JButton btnExit = new JButton("Exit");
 	
 	JLabel lbVersion = new JLabel("Version 1.0");
 	
+	MyDictionary dict = MyDictionary.getInstance();
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		Object src = e.getSource();
-		if (src==btnViewDict) {			
-			frame.dispose();
+		if (src==btnSearchSlang) {	
+			searchSlang();
 		} 
+		else if (src==btnSearchDefinition) {
+			searchDefinition();
+		}
 		else if (src==btnExit) {
-			frame.dispose();
+			this.dispose();
 		}
 		else if (src==btnAboutMe) {
-			frame.dispose();
+			this.dispose();
 			new AboutMeScreen();
 		}
+	}
+	
+	private void searchSlang() {
+		String slang = JOptionPane.showInputDialog("Input slang");
+		if (dict.get(slang)==null) {
+			MyDialog dialog = new MyDialog(this,"Error","Slang word not found");
+			dialog.setVisible(true);
+		} else {
+			
+		}
+	}
+	
+	private void searchDefinition() {
+		String slang = JOptionPane.showInputDialog("Input definition");
+	}
+	
+	private void addSlang() {
+		
+	}
+	
+	private void resetDictionary() {
+		
+		
+	}
+	
+	private void randomSlang() {
+		
+	}
+	
+	private void quizSlang() {
+		
+	}
+	
+	private void quizDefinition() {
+		
 	}
 	
 	private JPanel createMenuPanel() {
@@ -65,24 +113,49 @@ public class MenuScreen implements ActionListener{
 		
 		BoxLayout layout = new BoxLayout(panel,BoxLayout.Y_AXIS);
 		
-		panel.setBorder(new EmptyBorder(new Insets(100,250,100,250)));
+		Dimension btnSize = new Dimension(200,100);
+		Dimension boxSize = new Dimension(10,10);
+		
+		
+		panel.setBorder(new EmptyBorder(new Insets(50,250,50,250)));
 		panel.setLayout(layout);
 
-		btnViewDict.setMaximumSize(new Dimension(200,100));
-		btnViewDict.addActionListener(this);
-		
-		btnAboutMe.setMaximumSize(new Dimension(200,100));
+		btnSearchSlang.addActionListener(this);
+		btnSearchDefinition.addActionListener(this);
+		btnAddSlang.addActionListener(this);
+		btnReset.addActionListener(this);
+		btnRandomSlang.addActionListener(this);
+		btnQuizSlang.addActionListener(this);
+		btnQuizDefinition.addActionListener(this);
 		btnAboutMe.addActionListener(this);
-		
-		btnExit.setMaximumSize(new Dimension(200,100));
 		btnExit.addActionListener(this);
-
-		// Load data
 		
-		panel.add(btnViewDict);
-		panel.add(Box.createRigidArea(new Dimension(10,10)));
+		btnSearchSlang.setMaximumSize(btnSize);
+		btnSearchDefinition.setMaximumSize(btnSize);
+		btnAddSlang.setMaximumSize(btnSize);
+		btnReset.setMaximumSize(btnSize);
+		btnRandomSlang.setMaximumSize(btnSize);
+		btnQuizSlang.setMaximumSize(btnSize);
+		btnQuizDefinition.setMaximumSize(btnSize);
+		btnAboutMe.setMaximumSize(btnSize);
+		btnExit.setMaximumSize(btnSize);
+
+		panel.add(btnSearchSlang);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnSearchDefinition);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnAddSlang);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnReset);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnRandomSlang);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnQuizSlang);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnQuizDefinition);
+		panel.add(Box.createRigidArea(boxSize));
 		panel.add(btnAboutMe);
-		panel.add(Box.createRigidArea(new Dimension(10,10)));
+		panel.add(Box.createRigidArea(boxSize));
 		panel.add(btnExit);
 		
 		return panel;
@@ -103,7 +176,7 @@ public class MenuScreen implements ActionListener{
 	private JPanel createHeadingPanel() {
 		JPanel panel = new JPanel();
 		
-		panel.setBorder(new EmptyBorder(new Insets(50,0,50,0)));
+		panel.setBorder(new EmptyBorder(new Insets(20,0,20,0)));
 		
 		lbHeading.setFont(fontHeading);
 		
@@ -112,16 +185,16 @@ public class MenuScreen implements ActionListener{
 		return panel;
 	}
 	
-	public MenuScreen() {
-		
+	public MenuScreen() {		
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		frame = new JFrame("Menu");
+		this.setTitle("Menu");
+		this.setLocationRelativeTo(null);
 
-		frame.add(createHeadingPanel(), BorderLayout.NORTH);
-		frame.add(createUnderPanel(), BorderLayout.SOUTH);
-		frame.add(createMenuPanel(), BorderLayout.CENTER);
+		this.add(createHeadingPanel(), BorderLayout.NORTH);
+		this.add(createUnderPanel(), BorderLayout.SOUTH);
+		this.add(createMenuPanel(), BorderLayout.CENTER);
 		
-		frame.pack();
-		frame.setVisible(true);
+		this.pack();
+		this.setVisible(true);
 	}
 }

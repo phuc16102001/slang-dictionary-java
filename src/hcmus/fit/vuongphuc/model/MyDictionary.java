@@ -27,12 +27,30 @@ import hcmus.fit.vuongphuc.constant.Constant;
  */
 public class MyDictionary extends HashMap<String, MyDefinitionList> {
 	
+	private static MyDictionary instance = null;
+	private MyDictionary() {}
+	
+	public static MyDictionary getInstance() {
+		if (instance==null) {
+			instance = new MyDictionary();
+		}
+		return instance;
+	}
+	
+	public MyDefinitionList searchSlang(String slang) {
+		return this.get(slang);
+	}
+	
 	public void loadFromFile(String path) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 	
 		String line = null;
 		while ((line=reader.readLine())!=null) {
+//			System.out.println(line);
 			String[] args1 = line.split(Constant.SLANG_DEFINITION_DELIMITER);
+			if (args1.length<2) {
+				continue;
+			}
 			String slang = args1[0];
 			String[] args2 = args1[1].split(Constant.CURRENT_DICT_PATH);
 			
