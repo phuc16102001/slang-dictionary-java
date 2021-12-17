@@ -79,7 +79,8 @@ public class MenuScreen extends JFrame implements ActionListener{
 			MyDialog dialog = new MyDialog(this,"Error","Slang word not found");
 			dialog.setVisible(true);
 		} else {
-			
+			this.dispose();
+			new SlangScreen(slang);
 		}
 	}
 	
