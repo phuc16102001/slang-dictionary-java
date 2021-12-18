@@ -182,6 +182,10 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 	
 	private void removeSlang() {
 		String slang = JOptionPane.showInputDialog("Input slang word");
+		if (slang == null) {
+			return;
+		}
+		
 		MyDefinitionList definitions = dict.get(slang);
 		MyDialog dialog;
 		if (definitions==null) {
