@@ -42,6 +42,7 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 	Font fontHeading = new Font("Consola",Font.BOLD,18);
 
 	JButton btnDictionary = new JButton("Dictionary");
+	JButton btnHistory = new JButton("History");
 	JButton btnQuizSlang = new JButton("Quiz slang");
 	JButton btnQuizDefinition = new JButton("Quiz definition");
 	JButton btnAboutMe = new JButton("About me");
@@ -60,6 +61,10 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 		else if (src==btnDictionary) {
 			this.dispose();
 			new DictionaryMenuScreen();
+		}
+		else if (src==btnHistory) {
+			this.dispose();
+			new HistoryScreen();
 		}
 		else if (src==btnAboutMe) {
 			this.dispose();
@@ -88,18 +93,22 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 		panel.setLayout(layout);
 		
 		btnDictionary.addActionListener(this);
+		btnHistory.addActionListener(this);
 		btnQuizSlang.addActionListener(this);
 		btnQuizDefinition.addActionListener(this);
 		btnAboutMe.addActionListener(this);
 		btnExit.addActionListener(this);
 
 		btnDictionary.setMaximumSize(btnSize);
+		btnHistory.setMaximumSize(btnSize);
 		btnQuizSlang.setMaximumSize(btnSize);
 		btnQuizDefinition.setMaximumSize(btnSize);
 		btnAboutMe.setMaximumSize(btnSize);
 		btnExit.setMaximumSize(btnSize);
 
 		panel.add(btnDictionary);
+		panel.add(Box.createRigidArea(boxSize));
+		panel.add(btnHistory);
 		panel.add(Box.createRigidArea(boxSize));
 		panel.add(btnQuizSlang);
 		panel.add(Box.createRigidArea(boxSize));

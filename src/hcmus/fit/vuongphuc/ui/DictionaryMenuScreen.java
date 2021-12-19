@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import hcmus.fit.vuongphuc.constant.Constant;
+import hcmus.fit.vuongphuc.model.History;
 import hcmus.fit.vuongphuc.model.MyDefinitionList;
 import hcmus.fit.vuongphuc.model.MyDictionary;
 
@@ -162,10 +163,21 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 	
 	private void searchSlang() {
 		String slang = JOptionPane.showInputDialog("Input slang");
+		if (slang==null) {
+			return;
+		}
+		
 		if (dict.get(slang)==null) {
 			MyDialog dialog = new MyDialog(this,"Error","Slang word not found");
 			dialog.setVisible(true);
 		} else {
+			try {
+				History.getInstance().add(slang);
+				History.getInstance().saveHistory();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
 			this.dispose();
 			new SlangScreen(slang);
 		}
