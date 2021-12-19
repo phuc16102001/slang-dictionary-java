@@ -34,19 +34,32 @@ public class MyDialog extends JDialog implements ActionListener {
 	JLabel lbMessage;
 	JButton btnOk = new JButton("Ok");
 	JPanel panel = new JPanel();
+	Runnable callback = null;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src==btnOk) {
 			this.dispose();
+			if (callback!=null) {				
+				callback.run();
+			}
 		}
 	}
-
+	
+	public void setCallback(Runnable callback) {
+		this.callback = callback;
+	}
+	
 	public MyDialog(JFrame frame, String title, String message, Boolean useOk) {
+		this(frame, title, message, useOk, null);
+	}
+
+	public MyDialog(JFrame frame, String title, String message, Boolean useOk, Runnable callback) {
 		super(frame,title);
 		this.setLocationRelativeTo(null);
 		
+		this.callback = callback;
 		BoxLayout layout = new BoxLayout(panel,BoxLayout.Y_AXIS);
 		panel.setLayout(layout);
 		panel.setBorder(new CompoundBorder(new TitledBorder("Notification"), new EmptyBorder(10,10,10,10)));

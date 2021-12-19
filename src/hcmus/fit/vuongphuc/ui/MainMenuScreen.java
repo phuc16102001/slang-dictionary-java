@@ -15,7 +15,9 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -27,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import hcmus.fit.vuongphuc.model.MyDefinitionList;
 import hcmus.fit.vuongphuc.model.MyDictionary;
 
 /**
@@ -70,10 +73,32 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 			this.dispose();
 			new AboutMeScreen();
 		}
+		else if (src==btnQuizSlang) {
+			quizSlang();
+		}
 	}
 	
 	private void quizSlang() {
+		List<String> slangs = new ArrayList<>();
+		while (slangs.size()<4) {
+			String newSlang = dict.random();
+			if (!slangs.contains(newSlang)) {
+				slangs.add(newSlang);
+			}
+		}
 		
+		int answer = new Random().nextInt(4);
+		String question = slangs.get(answer);
+		
+		List<String> answers = new ArrayList<>();
+		for (int i=0;i<4;i++) {
+			MyDefinitionList lsDefinition = dict.get(slangs.get(i));
+			int index = new Random().nextInt(lsDefinition.size());
+			answers.add(lsDefinition.get(index));
+		}
+		
+		this.dispose();
+		new QuizScreen(question,answers,answer);
 	}
 	
 	private void quizDefinition() {
