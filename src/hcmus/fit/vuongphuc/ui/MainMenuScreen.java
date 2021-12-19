@@ -76,6 +76,9 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 		else if (src==btnQuizSlang) {
 			quizSlang();
 		}
+		else if (src==btnQuizDefinition) {
+			quizDefinition();
+		}
 	}
 	
 	private void quizSlang() {
@@ -102,7 +105,21 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 	}
 	
 	private void quizDefinition() {
+		List<String> slangs = new ArrayList<>();
+		while (slangs.size()<4) {
+			String newSlang = dict.random();
+			if (!slangs.contains(newSlang)) {
+				slangs.add(newSlang);
+			}
+		}
 		
+		int answer = new Random().nextInt(4);
+		MyDefinitionList lsDefinition = dict.get(slangs.get(answer));
+		int index = new Random().nextInt(lsDefinition.size());
+		String question = lsDefinition.get(index);
+		
+		this.dispose();
+		new QuizScreen(question,slangs,answer);
 	}
 	
 	private JPanel createMenuPanel() {
