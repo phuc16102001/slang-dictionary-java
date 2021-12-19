@@ -8,8 +8,6 @@
  */
 package hcmus.fit.vuongphuc.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -26,9 +24,9 @@ import hcmus.fit.vuongphuc.model.History;
  * @author VuongPhuc
  * @see 
  */
-public class HistoryScreen extends JFrame implements ActionListener {
+public class HistoryScreen extends JFrame implements ActionListener, MouseListener {
 
-	DefaultListModel<String> model = new DefaultListModel<String>();
+	DefaultListModel<String> model = new DefaultListModel<>();
 	JList<String> lsHistory = new JList<>(model);
 	JButton btnBack = new JButton("Back");
 	JButton btnDelete = new JButton("Delete");
@@ -63,17 +61,17 @@ public class HistoryScreen extends JFrame implements ActionListener {
 	
 	private void loadHistory() throws IOException {
 		model.clear();
-		model.addAll(History.getInstance().loadHistory());
+		model.addAll(history.loadHistory());
 	}
 	
-	private JPanel createCenter() {
-		JPanel panel = new JPanel();
-
+	private JScrollPane createCenter() {
 		JScrollPane scroll = new JScrollPane(lsHistory);
 		scroll.setBorder(new TitledBorder("History"));
-		panel.add(scroll);
+		scroll.setPreferredSize(new Dimension(200,200));
 		
-		return panel;
+		lsHistory.addMouseListener(this);
+		
+		return scroll;
 	}
 	
 	private JPanel createRight() {
@@ -101,6 +99,11 @@ public class HistoryScreen extends JFrame implements ActionListener {
 	
 	public HistoryScreen() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setTitle("History");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		this.add(createCenter(),BorderLayout.CENTER);
+		this.add(createRight(),BorderLayout.EAST);
 		
 		try {
 			loadHistory();
@@ -108,9 +111,43 @@ public class HistoryScreen extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		this.add(createCenter(),BorderLayout.CENTER);
-		this.add(createRight(),BorderLayout.EAST);
+		this.pack();
 		this.setVisible(true);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getClickCount()==2) {
+			int index = lsHistory.locationToIndex(e.getPoint());
+			if (index!=-1) {
+				this.dispose();
+				new SlangScreen(model.getElementAt(index));
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
