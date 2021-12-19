@@ -54,9 +54,9 @@ public class MyDictionary extends HashMap<String, MyDefinitionList> {
 		List<String> slangs = new ArrayList<>();
 
 		for (Map.Entry<String, MyDefinitionList> item:this.entrySet()) {	
-			String[] values = this.get(item.getValue()).toArray(new String[0]);
+			String[] values = item.getValue().toArray(new String[0]);
 			for (String definition:values) {
-				if (searchKey.toLowerCase().contains(definition.toLowerCase())) {
+				if (definition.toLowerCase().contains(searchKey.toLowerCase())) {
 					slangs.add(item.getKey());
 					break;
 				}

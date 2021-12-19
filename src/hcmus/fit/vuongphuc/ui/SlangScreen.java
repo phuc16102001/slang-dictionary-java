@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class SlangScreen extends JFrame implements ActionListener {
 	
-	
 	private String slang;
 	private List<String> definitions;
 	

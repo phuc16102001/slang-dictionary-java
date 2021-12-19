@@ -6,7 +6,7 @@
  * @since 2021
  * @version
  */
-package hcmus.fit.vuongphuc.utils;
+package hcmus.fit.vuongphuc.ui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

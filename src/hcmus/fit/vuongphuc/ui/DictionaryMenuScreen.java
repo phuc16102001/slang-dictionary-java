@@ -14,14 +14,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import hcmus.fit.vuongphuc.constant.Constant;
 import hcmus.fit.vuongphuc.model.MyDefinitionList;
 import hcmus.fit.vuongphuc.model.MyDictionary;
-import hcmus.fit.vuongphuc.utils.MyDialog;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -167,8 +169,8 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 	private void searchDefinition() {
 		String definition = JOptionPane.showInputDialog("Input definition");
 		List<String> res = dict.searchDefinition(definition);
-		
-		JDialog dialog = new JDialog();
+		DefinitionScreen dialog = new DefinitionScreen(res);
+		dialog.setVisible(true);
 	}
 
 	private void randomSlang() {

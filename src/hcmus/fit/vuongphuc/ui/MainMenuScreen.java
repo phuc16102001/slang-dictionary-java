@@ -28,7 +28,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import hcmus.fit.vuongphuc.model.MyDictionary;
-import hcmus.fit.vuongphuc.utils.MyDialog;
 
 /**
  * Description:
