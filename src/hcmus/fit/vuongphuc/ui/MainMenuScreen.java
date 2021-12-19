@@ -138,6 +138,7 @@ public class MainMenuScreen extends JFrame implements ActionListener{
 	
 	public MainMenuScreen() {		
 		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Menu");
 		this.setLocationRelativeTo(null);
 

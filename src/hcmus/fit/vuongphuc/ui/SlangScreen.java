@@ -14,10 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 
+import hcmus.fit.vuongphuc.constant.Constant;
 import hcmus.fit.vuongphuc.model.MyDictionary;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,10 +33,13 @@ public class SlangScreen extends JFrame implements ActionListener {
 	private String slang;
 	private List<String> definitions;
 	
-	private JList<String> lsDefintion;
+	private DefaultListModel<String> model = new DefaultListModel<>();
+	private JList<String> lsDefintion = new JList<>(model);
 	private JButton btnAddDefinition = new JButton("Add definition");
 	private JButton btnRemoveDefinition = new JButton("Remove definition");
 	private JButton btnBack = new JButton("Back");
+	
+	MyDictionary dict = MyDictionary.getInstance();
 
 	private JPanel createCenter() {
 		JPanel panel = new JPanel();
@@ -80,7 +85,8 @@ public class SlangScreen extends JFrame implements ActionListener {
 	
 	private void loadDefinition() {
 		this.definitions = MyDictionary.getInstance().get(slang);
-		lsDefintion = new JList<>(this.definitions.toArray(new String[0]));
+		model.clear();
+		model.addAll(definitions);
 	}
 	
 	public SlangScreen(String slang) {
@@ -89,6 +95,7 @@ public class SlangScreen extends JFrame implements ActionListener {
 		
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.setTitle("Slang screen");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
 		this.add(createCenter(), BorderLayout.CENTER);
@@ -106,10 +113,46 @@ public class SlangScreen extends JFrame implements ActionListener {
 			new DictionaryMenuScreen();
 		} 
 		else if (src==btnAddDefinition) {
-			
+			addDefinition();
 		} 
 		else if (src==btnRemoveDefinition) {
-			
+			removeDefinition();
 		}
+	}
+	
+	private void removeDefinition() {
+		int index=lsDefintion.getSelectedIndex();
+		MyDialog dialog;
+
+		if (index==-1) {
+			dialog = new MyDialog(this,"Remove definition","Please select a definition");
+		} else {
+			try {
+				dict.removeDefinition(slang, index);
+				dict.storeToFile(Constant.CURRENT_DICT_PATH);
+				dialog = new MyDialog(this,"Remove definition","Remove successfully");
+				loadDefinition();
+			} catch (IOException e) {
+				dialog = new MyDialog(this,"Remove definition","Cannot access file");
+				e.printStackTrace();
+			}
+		}
+
+		dialog.setVisible(true);
+	}
+	
+	private void addDefinition() {
+		String definition = JOptionPane.showInputDialog("What is the definition?");
+		MyDialog dialog;
+		try {
+			dict.addSlang(slang, definition);
+			dict.storeToFile(Constant.CURRENT_DICT_PATH);
+			loadDefinition();
+			dialog = new MyDialog(this,"Add new definition","Add successfully");
+		} catch (IOException e) {
+			dialog = new MyDialog(this,"Add new definition","Cannot access file");
+			e.printStackTrace();
+		}
+		dialog.setVisible(true);
 	}
 }

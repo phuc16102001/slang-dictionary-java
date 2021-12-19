@@ -18,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -72,6 +73,9 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 		else if (src==btnBack) {
 			this.dispose();
 			new MainMenuScreen();
+		}
+		else if (src==btnAddSlang) {
+			addSlang();
 		}
 	}
 
@@ -144,6 +148,7 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 	
 	public DictionaryMenuScreen() {		
 		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Dictionary");
 		this.setLocationRelativeTo(null);
 
@@ -179,7 +184,51 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 	}
 	
 	private void addSlang() {
+		JTextField txtSlang = new JTextField(5);
+		JTextField txtDefinition = new JTextField(5);
 		
+		JPanel panelAdd = new JPanel();
+		panelAdd.add(new JLabel("Slang word:"));
+		panelAdd.add(txtSlang);
+		panelAdd.add(Box.createHorizontalStrut(15));
+		panelAdd.add(new JLabel("Definition:"));
+		panelAdd.add(txtDefinition);
+		
+		int result = JOptionPane.showConfirmDialog(null, panelAdd, "Add new slang", JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION) {
+			String slang = txtSlang.getText();
+			String definition = txtDefinition.getText();
+			
+			MyDefinitionList lsDefinition = dict.get(slang);
+			if (lsDefinition==null) {
+				dict.addSlang(slang, definition);
+			} else {
+				String[] option = new String[] {"Append", "Overwrite"};
+				int index = JOptionPane.showOptionDialog(null,
+						"That slang have existed, what do you want?",
+						"Add new slang",
+					    JOptionPane.DEFAULT_OPTION,
+					    JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    option,
+					    option[0]);
+				if (index==0) {
+					dict.addSlang(slang, definition);
+				} else {
+					dict.setSlang(slang, definition);
+				}
+			}
+			
+			MyDialog resultDialog;
+			try {
+				dict.storeToFile(Constant.CURRENT_DICT_PATH);
+				resultDialog = new MyDialog(this, "Add slang", "Add successfully");
+			} catch (IOException e) {
+				resultDialog = new MyDialog(this, "Add slang", "Cannot access file");
+				e.printStackTrace();
+			}
+			resultDialog.setVisible(true);
+		}
 	}
 	
 	private void removeSlang() {
@@ -197,7 +246,6 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 				dict.remove(slang);
 				dict.storeToFile(Constant.CURRENT_DICT_PATH);
 				
-
 				dialog = new MyDialog(this, "Error", "Remove successfully");
 			} catch (IOException e) {
 				dialog = new MyDialog(this, "Error", "Cannot access to file");

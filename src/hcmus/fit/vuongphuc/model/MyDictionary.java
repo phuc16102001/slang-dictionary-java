@@ -50,6 +50,24 @@ public class MyDictionary extends HashMap<String, MyDefinitionList> {
 		return this.get(slang);
 	}
 	
+	public void removeDefinition(String slang, int definitionIndex) {
+		this.get(slang).remove(definitionIndex);
+	}
+	
+	public void addSlang(String slang, String definition) {
+		MyDefinitionList listDefinition = this.get(slang);
+		if (listDefinition==null) {
+			setSlang(slang,definition);
+			return;
+		}
+		listDefinition.add(definition);
+	}
+	
+	public void setSlang(String slang, String definition) {
+		MyDefinitionList newList = new MyDefinitionList(definition);
+		this.put(slang, newList);
+	}
+	
 	public List<String> searchDefinition(String searchKey) {
 		List<String> slangs = new ArrayList<>();
 
