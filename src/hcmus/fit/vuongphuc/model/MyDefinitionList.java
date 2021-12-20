@@ -9,7 +9,6 @@
 package hcmus.fit.vuongphuc.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hcmus.fit.vuongphuc.constant.Constant;
 
