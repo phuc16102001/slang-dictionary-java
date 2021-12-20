@@ -8,29 +8,30 @@
  */
 package hcmus.fit.vuongphuc.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import hcmus.fit.vuongphuc.constant.Constant;
 import hcmus.fit.vuongphuc.model.History;
 import hcmus.fit.vuongphuc.model.MyDefinitionList;
 import hcmus.fit.vuongphuc.model.MyDictionary;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Description:
@@ -254,6 +255,10 @@ public class DictionaryMenuScreen extends JFrame implements ActionListener {
 		if (definitions==null) {
 			dialog = new MyDialog(this, "Error", "Slang not found");
 		} else {
+			int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Remove slang", JOptionPane.YES_NO_OPTION);
+			if (result==JOptionPane.NO_OPTION) {
+				return;
+			}
 			try {
 				dict.remove(slang);
 				dict.storeToFile(Constant.CURRENT_DICT_PATH);

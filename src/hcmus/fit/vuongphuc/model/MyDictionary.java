@@ -96,7 +96,7 @@ public class MyDictionary extends HashMap<String, MyDefinitionList> {
 			String[] args2 = args1[1].split(Pattern.quote(Constant.DEFINITION_DEFINITION_DELIMITER));
 			
 			MyDefinitionList definitions = new MyDefinitionList(args2);
-			System.out.println(definitions);
+			// System.out.println(definitions);
 			this.put(slang, definitions);
 		}
 		

@@ -1162,7 +1162,6 @@ DAP`Touching of fists greeting
 DAQ`Don't Ask Questions
 <2`Not quite love (<3)
 DAT`That
-<3`Love (heart shape)
 <4`More than love (<3)
 DAW`Digital Audio Workstation
 THOU`You

@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import java.awt.Dimension;
 import java.awt.event.*;
 
 /**
@@ -44,6 +46,7 @@ public class DefinitionScreen extends JDialog implements ActionListener {
 		lsSlang = new JList<>(this.definitions.toArray(new String[0]));
 		scroll = new JScrollPane(lsSlang);
 		scroll.setBorder(new CompoundBorder(new EmptyBorder(2,2,2,2),new TitledBorder("Slang words")));
+		scroll.setPreferredSize(new Dimension(300,200));
 		panel.add(scroll);
 		
 		btnOk.addActionListener(this);
