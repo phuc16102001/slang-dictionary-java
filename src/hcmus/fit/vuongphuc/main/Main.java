@@ -13,7 +13,6 @@ import java.io.IOException;
 import hcmus.fit.vuongphuc.constant.Constant;
 import hcmus.fit.vuongphuc.model.MyDictionary;
 import hcmus.fit.vuongphuc.ui.MainMenuScreen;
-import hcmus.fit.vuongphuc.ui.MyDialog;
 
 /**
  * Description:
